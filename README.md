@@ -13,7 +13,7 @@ Using packer:
 
 ```lua
 use {
-  'nvim-telescope/telescope.nvim`,
+  'nvim-telescope/telescope.nvim',
   branch = '0.1.x', -- Recommended
   requires = {
     'MrcJkb/telescope-manix',
