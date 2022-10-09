@@ -15,7 +15,6 @@ use {
   requires = {
     'MrcJkb/telescope-manix',
   },
-
 }
 
 ```
