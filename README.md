@@ -1,6 +1,6 @@
 # telescope-manix
 
-A [telescope.nvim](https://github.com/nvim-telescope) extension for [Manix](https://github.com/mlvzk/manix)
+A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension for [Manix](https://github.com/mlvzk/manix)
 > A fast documentation searcher for [Nix](https://nixos.wiki/wiki/Overview_of_the_Nix_Language)
 
 ## Installation
