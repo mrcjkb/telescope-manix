@@ -39,7 +39,7 @@ local function show_manix_preview(entry, buf)
     on_exit = function(job, exit_code)
       vim.schedule(function()
         if exit_code ~= 0 then
-          vim.notify('Error querying manix for manix-telescope previiew', vim.log.levels.ERROR)
+          vim.notify('Error querying manix for manix-telescope preview', vim.log.levels.ERROR)
           return
         end
         local manix_results = job:result()
