@@ -5,9 +5,12 @@ A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension f
 
 ![](https://user-images.githubusercontent.com/12857160/194766498-d39ca036-8e9c-4083-bb31-dca94e791588.png)
 
-## Installation
+## Prerequisites 
 
 * Depends on [Manix](https://github.com/mlvzk/manix).
+* [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+
+## Installation
 
 Using packer:
 
@@ -16,7 +19,9 @@ use {
   'nvim-telescope/telescope.nvim',
   branch = '0.1.x', -- Recommended
   requires = {
+    'nvim-lua/plenary.nvim'
     'MrcJkb/telescope-manix',
+    -- ...
   },
 }
 
@@ -42,6 +47,10 @@ telescope.load_extension('manix')
 
 ```lua
 require('telescope-manix').search()
+
+-- or
+
+require('telescope').extensions.manix.search()
 ```
 
 ## Customisation
