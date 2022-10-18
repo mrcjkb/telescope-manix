@@ -19,7 +19,7 @@ use {
   'nvim-telescope/telescope.nvim',
   branch = '0.1.x', -- Recommended
   requires = {
-    'nvim-lua/plenary.nvim'
+    'nvim-lua/plenary.nvim',
     'MrcJkb/telescope-manix',
     -- ...
   },
