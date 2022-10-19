@@ -3,9 +3,9 @@
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension for [Manix](https://github.com/mlvzk/manix)
 > A fast documentation searcher for [Nix](https://nixos.wiki/wiki/Overview_of_the_Nix_Language)
 
-![](https://user-images.githubusercontent.com/12857160/194766498-d39ca036-8e9c-4083-bb31-dca94e791588.png)
+[![asciicast](https://asciinema.org/a/t1rHXoElZtqW9lIhOamNG2xgu.svg)](https://asciinema.org/a/t1rHXoElZtqW9lIhOamNG2xgu)
 
-## Prerequisites 
+## Prerequisites
 
 * Depends on [Manix](https://github.com/mlvzk/manix).
 * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)

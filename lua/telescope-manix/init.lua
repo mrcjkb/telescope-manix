@@ -4,6 +4,7 @@ local config = require('telescope.config').values
 local actions = require('telescope.actions')
 local actions_state = require('telescope.actions.state')
 local previewers = require('telescope.previewers')
+local previewer_utils = require('telescope.previewers.utils')
 local has_plenary, Job = pcall(require, 'plenary.job')
 
 if not has_telescope then
@@ -45,6 +46,7 @@ local function show_manix_preview(entry, buf)
         local manix_results = job:result()
         if manix_results then
           vim.api.nvim_buf_set_lines(buf, 0, -1, true, manix_results)
+          previewer_utils.highlighter(buf, 'nix')
           vim.api.nvim_buf_call(buf, function()
             local win = vim.fn.win_findbuf(buf)[1]
             vim.wo[win].conceallevel = 2
