@@ -3,7 +3,21 @@
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension for [Manix](https://github.com/mlvzk/manix)
 > A fast documentation searcher for [Nix](https://nixos.wiki/wiki/Overview_of_the_Nix_Language)
 
+## Quick links
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Customisation](#customisation)
+
+## Features
+
+#### Nix fuzzy search
 [![asciicast](https://asciinema.org/a/t1rHXoElZtqW9lIhOamNG2xgu.svg)](https://asciinema.org/a/t1rHXoElZtqW9lIhOamNG2xgu)
+
+#### Search for the word under the cursor
+[![asciicast](https://asciinema.org/a/6FyS0Bkp7bqSYLvY4OwvxzOF7.svg)](https://asciinema.org/a/6FyS0Bkp7bqSYLvY4OwvxzOF7)
 
 ## Prerequisites
 
@@ -47,10 +61,6 @@ telescope.load_extension('manix')
 
 ```lua
 require('telescope-manix').search()
-
--- or
-
-require('telescope').extensions.manix.search()
 ```
 
 ## Customisation
@@ -59,6 +69,8 @@ require('telescope').extensions.manix.search()
 default_opts = {
   -- CLI arguments to pass to manix, see `manix --help`
   manix_args = {},
+  -- Set to true to search for the word under the cursor
+  cword = false,
 }
 require('telescope-manix').search(default_opts)
 ```

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-10-19
+### Added
+- Add option to search for word under cursor
+
 ## [0.2.0] - 2022-10-19
 ### Added
 - Attach `nix` highlighter to previewer
