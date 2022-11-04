@@ -1,5 +1,10 @@
 # telescope-manix
 
+
+![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
+![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
+
+
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) extension for [Manix](https://github.com/mlvzk/manix)
 > A fast documentation searcher for [Nix](https://nixos.wiki/wiki/Overview_of_the_Nix_Language)
 
