@@ -73,6 +73,8 @@ require('telescope-manix').search()
 ```lua
 default_opts = {
   -- CLI arguments to pass to manix, see `manix --help`
+  -- for example: `{'--source', 'nixpkgs_doc', '--source', 'nixpkgs_comments'}`
+  -- will restrict search to nixpkgs docs and comments.
   manix_args = {},
   -- Set to true to search for the word under the cursor
   cword = false,
