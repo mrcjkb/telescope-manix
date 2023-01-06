@@ -67,6 +67,8 @@ telescope.load_extension('manix')
 
 ```lua
 require('telescope-manix').search()
+-- or
+require('telescope').extensions.manix.manix()
 ```
 
 ## Customisation
@@ -81,4 +83,6 @@ default_opts = {
   cword = false,
 }
 require('telescope-manix').search(default_opts)
+-- or
+require('telescope').extensions.manix.manix(derault_opts)
 ```
