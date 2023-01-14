@@ -40,7 +40,7 @@ use {
   branch = '0.1.x', -- Recommended
   requires = {
     'nvim-lua/plenary.nvim',
-    'MrcJkb/telescope-manix',
+    'mrcjkb/telescope-manix',
     -- ...
   },
 }
