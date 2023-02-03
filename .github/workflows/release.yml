@@ -19,7 +19,6 @@ jobs:
           dependencies: |
             telescope.nvim
           detailed_description: |
-            This plugin automatically configures the haskell-language-server builtin LSP client
-            and integrates with other Haskell tools. See the README's #features section
-            for more info.
+            Manix is a fast documentation searcher for nix.
+            This plugin provides a telescope.nvim extension for manix.
 
