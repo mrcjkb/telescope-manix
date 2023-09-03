@@ -1,3 +1,21 @@
+---@mod telescope-manix Manix Telescope extension
+---@brief [[
+--- If `telescope.nvim` is installed, `haskell-tools` will register the `ht` extenstion
+--- with the `:Telescope manix` command:
+---
+--- To load the extension, call
+---
+--- >
+--- require('telescope').load_extension('manix')
+--- <
+---
+--- In Lua, you can access the extension with
+---
+--- >
+--- local telescope = require('telescope').extensions.manix.manix()
+--- <
+---@brief ]]
+
 local has_telescope, pickers = pcall(require, "telescope.pickers")
 local finders = require("telescope.finders")
 local config = require("telescope.config").values
@@ -80,6 +98,8 @@ local function attach_mappings(buf)
   return true
 end
 
+---Search the Nix documentation
+---@param opts table
 M.search = function(opts)
   if vim.fn.executable("manix") == "1" then
     error("telescope-manix: 'manix' executable not found! Aborting.")
