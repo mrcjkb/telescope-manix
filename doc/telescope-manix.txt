@@ -16,11 +16,18 @@ Manix Telescope extension                                      *telescope-manix*
  local telescope = require('telescope').extensions.manix.manix()
  <
 
-M.search({opts})                                                      *M.search*
+ManixOpts                                                            *ManixOpts*
+
+    Fields: ~
+        {manix_args}  (string[])  CLI arguments to pass to manix, see `manix --help`
+        {cword}       (boolean)   Set to true to search for the word under the cursor
+
+
+manix.search({opts})                                              *manix.search*
     Search the Nix documentation
 
     Parameters: ~
-        {opts}  (table)
+        {opts}  (ManixOpts|table)  The manix options and/or the options to pass to Telescope
 
 
 vim:tw=78:ts=8:noet:ft=help:norl:

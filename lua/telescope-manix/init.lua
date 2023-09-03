@@ -17,29 +17,38 @@
 ---@brief ]]
 
 local has_telescope, pickers = pcall(require, "telescope.pickers")
+if not has_telescope then
+  error("telescope-manix requires nvim-telescope/telescope.nvim")
+end
+local has_plenary, Job = pcall(require, "plenary.job")
+if not has_plenary then
+  error("telescope-manix requires nvim-lua/plenary.nvim")
+end
+
 local finders = require("telescope.finders")
 local config = require("telescope.config").values
 local actions = require("telescope.actions")
 local actions_state = require("telescope.actions.state")
 local previewers = require("telescope.previewers")
 local previewer_utils = require("telescope.previewers.utils")
-local has_plenary, Job = pcall(require, "plenary.job")
 
-if not has_telescope then
-  error("telescope-manix requires nvim-telescope/telescope.nvim")
-end
-if not has_plenary then
-  error("telescope-manix requires nvim-lua/plenary.nvim")
-end
+local manix = {}
 
-local M = {}
+---@class ManixOpts
+---@field manix_args string[] CLI arguments to pass to manix, see `manix --help`
+---@field cword boolean Set to true to search for the word under the cursor
 
+---@param opts ManixOpts
+---@return string[] manix_cmd
 local function mk_manix_cmd(opts)
   local search_arg = opts.cword and vim.fn.expand("<cword>") or ""
   local args = opts.manix_args or {}
   return vim.tbl_flatten({ "manix", search_arg, args })
 end
 
+---@param str string
+---@param pattern string
+---@return string[] matches
 local function tmatch(str, pattern)
   local matches = {}
   for match in string.gmatch(str, pattern) do
@@ -48,7 +57,11 @@ local function tmatch(str, pattern)
   return matches
 end
 
+---@param entry table
+---@param buf integer
+---@return nil
 local function show_manix_preview(entry, buf)
+  ---@diagnostic disable-next-line: missing-fields
   Job:new({
     command = "manix",
     args = { entry.display, "--strict" },
@@ -75,6 +88,8 @@ local function show_manix_preview(entry, buf)
   }):start()
 end
 
+---@param entry string
+---@return table | nil manix_entry
 local function mk_manix_entry(entry)
   local matches = tmatch(entry, "# ([%S]+)")
   if #matches == 0 then
@@ -89,6 +104,8 @@ local function mk_manix_entry(entry)
   }
 end
 
+---@param buf number
+---@return boolean
 local function attach_mappings(buf)
   actions.select_default:replace(function()
     local entry = actions_state.get_selected_entry()
@@ -99,8 +116,8 @@ local function attach_mappings(buf)
 end
 
 ---Search the Nix documentation
----@param opts table
-M.search = function(opts)
+---@param opts ManixOpts|table The manix options and/or the options to pass to Telescope
+manix.search = function(opts)
   if vim.fn.executable("manix") == "1" then
     error("telescope-manix: 'manix' executable not found! Aborting.")
     return
@@ -118,4 +135,4 @@ M.search = function(opts)
     :find()
 end
 
-return M
+return manix
