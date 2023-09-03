@@ -4,7 +4,7 @@
 ![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
 ![Nix](https://img.shields.io/badge/nix-0175C2?style=for-the-badge&logo=NixOS&logoColor=white)
 
-[![LuaRocks](https://img.shields.io/luarocks/v/MrcJkb/telescope-manix?logo=lua&color=purple)](https://luarocks.org/modules/MrcJkb/telescope-manix)
+[![LuaRocks](https://img.shields.io/luarocks/v/MrcJkb/telescope-manix?style=for-the-badge&logo=lua&color=purple)](https://luarocks.org/modules/MrcJkb/telescope-manix)
 
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 extension for [Manix](https://github.com/mlvzk/manix)
