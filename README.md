@@ -89,5 +89,5 @@ default_opts = {
 }
 require('telescope-manix').search(default_opts)
 -- or
-require('telescope').extensions.manix.manix(derault_opts)
+require('telescope').extensions.manix.manix(default_opts)
 ```
