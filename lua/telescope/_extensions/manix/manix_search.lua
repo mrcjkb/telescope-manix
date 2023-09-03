@@ -1,4 +1,4 @@
-local manix = require('telescope-manix')
+local manix = require("telescope-manix")
 
 local function setup(opts)
   manix.search(opts)
