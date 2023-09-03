@@ -6,6 +6,6 @@ pkgs.writeShellApplication {
   ];
   text = ''
     mkdir -p doc
-    lemmy-help lua/telescope-manix/init.lua lua/telescope/_extensions/manix.lua > doc/telescope-manix.txt
+    lemmy-help lua/telescope-manix/init.lua > doc/telescope-manix.txt
   '';
 }
