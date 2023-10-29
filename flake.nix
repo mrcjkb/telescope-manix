@@ -63,7 +63,6 @@
                   library = [
                     "${pkgs.neovim-nightly}/share/nvim/runtime/lua"
                     "${pkgs.vimPlugins.telescope-nvim}/lua"
-                    "${pkgs.vimPlugins.plenary-nvim}/lua"
                     "${pkgs.vimPlugins.neodev-nvim}/types/nightly"
                   ];
                   checkThirdParty = false;

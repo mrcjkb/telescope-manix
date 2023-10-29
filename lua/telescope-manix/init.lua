@@ -20,11 +20,8 @@ local has_telescope, pickers = pcall(require, "telescope.pickers")
 if not has_telescope then
   error("telescope-manix requires nvim-telescope/telescope.nvim")
 end
-local has_plenary, Job = pcall(require, "plenary.job")
-if not has_plenary then
-  error("telescope-manix requires nvim-lua/plenary.nvim")
-end
 
+local compat = require("telescope-manix.compat")
 local finders = require("telescope.finders")
 local config = require("telescope.config").values
 local actions = require("telescope.actions")
@@ -61,31 +58,33 @@ end
 ---@param buf integer
 ---@return nil
 local function show_manix_preview(entry, buf)
-  ---@diagnostic disable-next-line: missing-fields
-  Job:new({
-    command = "manix",
-    args = { entry.display, "--strict" },
-    on_exit = function(job, exit_code)
-      vim.schedule(function()
-        if exit_code ~= 0 then
-          vim.notify("Error querying manix for manix-telescope preview", vim.log.levels.ERROR)
-          return
-        end
-        local manix_results = job:result()
-        if manix_results then
-          vim.api.nvim_buf_set_lines(buf, 0, -1, true, manix_results)
-          previewer_utils.highlighter(buf, "nix")
-          vim.api.nvim_buf_call(buf, function()
-            local win = vim.fn.win_findbuf(buf)[1]
-            vim.wo[win].conceallevel = 2
-            vim.wo[win].wrap = true
-            vim.wo[win].linebreak = true
-            vim.bo[buf].textwidth = 80
-          end)
-        end
-      end)
-    end,
-  }):start()
+  compat.system(
+    { "manix", entry.display, "--strict" },
+    nil,
+    vim.schedule_wrap(function(sc)
+      ---@cast sc vim.SystemCompleted
+      local stdout = sc.stdout
+      if sc.code ~= 0 or stdout == nil then
+        vim.notify("Error querying manix for manix-telescope preview", vim.log.levels.ERROR)
+        return
+      end
+      local manix_results = {}
+      for line in stdout:gmatch("([^\n]*)\n?") do
+        table.insert(manix_results, line)
+      end
+      if #manix_results > 0 then
+        vim.api.nvim_buf_set_lines(buf, 0, -1, true, manix_results)
+        previewer_utils.highlighter(buf, "nix")
+        vim.api.nvim_buf_call(buf, function()
+          local win = vim.fn.win_findbuf(buf)[1]
+          vim.wo[win].conceallevel = 2
+          vim.wo[win].wrap = true
+          vim.wo[win].linebreak = true
+          vim.bo[buf].textwidth = 80
+        end)
+      end
+    end)
+  )
 end
 
 ---@param entry string
