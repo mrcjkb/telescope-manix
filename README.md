@@ -38,8 +38,11 @@ extension for [Manix](https://github.com/mlvzk/manix)
 
 > **Note**
 >
-> This plugin may work with older Neovim versions,
-> but is only tested with the latest stable version and nightly.
+> - This plugin may work with older Neovim versions,
+>   but is only tested with the latest stable version and nightly.
+>
+> - Manix has not been maintained in a while.
+>   There is [a fork](https://github.com/lecoqjacob/manix) that appears to be active.
 
 ## Installation
 
