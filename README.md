@@ -32,8 +32,14 @@ extension for [Manix](https://github.com/mlvzk/manix)
 
 ## Prerequisites
 
+- Neovim >= 0.9
 - Depends on [Manix](https://github.com/mlvzk/manix).
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+
+> **Note**
+>
+> This plugin may work with older Neovim versions,
+> but is only tested with the latest stable version and nightly.
 
 ## Installation
 

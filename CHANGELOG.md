@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2023-10-29
 ### Changed
-- Remove uses of `plenary.nvim`,
+- POTENTIALLY BREAKING: Remove uses of `plenary.nvim`,
   [which may be removed as a dependency from `telescope.nvim`](https://github.com/nvim-telescope/telescope.nvim/issues/2552).
   NOTE: This should not break anything, but it may bump the minimum Neovim version requirement.
   The telescope picker may be a bit slower on Neovim 0.9.
   This will improve again with Neovim 0.10.
+- Internal: Add type checks for `neovim stable` and `neovim nightly`.
 
 ## [0.5.0] - 2023-09-04
 ### Added

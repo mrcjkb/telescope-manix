@@ -44,41 +44,73 @@
 
       docgen = pkgs.callPackage ./nix/docgen.nix {};
 
+      mkTypeCheck = {
+        nvim-api ? [],
+        disabled-diagnostics ? [],
+      }:
+        pre-commit-hooks.lib.${system}.run {
+          src = self;
+          hooks = {
+            lua-ls.enable = true;
+          };
+          settings = {
+            lua-ls = {
+              config = {
+                runtime.version = "LuaJIT";
+                Lua = {
+                  workspace = {
+                    library =
+                      nvim-api
+                      ++ [
+                        "${pkgs.vimPlugins.telescope-nvim}/lua"
+                      ];
+                    checkThirdParty = false;
+                    ignoreDir = [
+                      ".git"
+                      ".github"
+                      ".direnv"
+                      "result"
+                      "nix"
+                      "doc"
+                    ];
+                  };
+                  diagnostics = {
+                    libraryFiles = "Disable";
+                    disable = disabled-diagnostics;
+                  };
+                };
+              };
+            };
+          };
+        };
+
+      type-check-stable = mkTypeCheck {
+        nvim-api = [
+          "${pkgs.neovim}/share/nvim/runtime/lua"
+          "${pkgs.vimPlugins.neodev-nvim}/types/stable"
+        ];
+        disabled-diagnostics = [
+          "undefined-doc-name"
+          "redundant-parameter"
+          "invisible"
+        ];
+      };
+
+      type-check-nightly = mkTypeCheck {
+        nvim-api = [
+          "${pkgs.neovim-nightly}/share/nvim/runtime/lua"
+          "${pkgs.vimPlugins.neodev-nvim}/types/nightly"
+        ];
+      };
+
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = self;
         hooks = {
           alejandra.enable = true;
           stylua.enable = true;
           luacheck.enable = true;
-          lua-ls.enable = true;
           editorconfig-checker.enable = true;
           markdownlint.enable = true;
-        };
-        settings = {
-          lua-ls = {
-            config = {
-              runtime.version = "LuaJIT";
-              Lua = {
-                workspace = {
-                  library = [
-                    "${pkgs.neovim-nightly}/share/nvim/runtime/lua"
-                    "${pkgs.vimPlugins.telescope-nvim}/lua"
-                    "${pkgs.vimPlugins.neodev-nvim}/types/nightly"
-                  ];
-                  checkThirdParty = false;
-                  ignoreDir = [
-                    ".git"
-                    ".github"
-                    ".direnv"
-                    "result"
-                    "nix"
-                    "doc"
-                  ];
-                };
-                diagnostics.libraryFiles = "Disable";
-              };
-            };
-          };
         };
       };
 
@@ -110,7 +142,11 @@
       };
 
       checks = {
-        inherit pre-commit-check;
+        inherit
+          pre-commit-check
+          type-check-stable
+          type-check-nightly
+          ;
       };
     })
     // {
