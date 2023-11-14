@@ -36,7 +36,7 @@ extension for [Manix](https://github.com/mlvzk/manix)
 - Depends on [Manix](https://github.com/mlvzk/manix).
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
-> **Note**
+> [!NOTE]
 >
 > - This plugin may work with older Neovim versions,
 >   but is only tested with the latest stable version and nightly.
