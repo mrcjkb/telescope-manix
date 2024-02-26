@@ -7,7 +7,7 @@
 [![LuaRocks](https://img.shields.io/luarocks/v/MrcJkb/telescope-manix?style=for-the-badge&logo=lua&color=purple)](https://luarocks.org/modules/MrcJkb/telescope-manix)
 
 A [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-extension for [Manix](https://github.com/mlvzk/manix)
+extension for [Manix](https://github.com/nix-community/manix)
 
 > A fast documentation searcher for [Nix](https://nixos.wiki/wiki/Overview_of_the_Nix_Language)
 
@@ -33,18 +33,21 @@ extension for [Manix](https://github.com/mlvzk/manix)
 ## Prerequisites
 
 - Neovim >= 0.9
-- Depends on [Manix](https://github.com/mlvzk/manix).
+- Depends on [Manix](https://github.com/nix-community/manix).
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
 > [!NOTE]
 >
 > - This plugin may work with older Neovim versions,
 >   but is only tested with the latest stable version and nightly.
->
-> - Manix has not been maintained in a while.
->   There is [a fork](https://github.com/lecoqjacob/manix) that appears to be active.
 
 ## Installation
+
+Using rocks.nvim:
+
+```vim
+:Rocks install telescope-manix
+```
 
 Using lazy.nvim:
 
