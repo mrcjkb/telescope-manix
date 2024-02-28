@@ -19,6 +19,7 @@ extension for [Manix](https://github.com/nix-community/manix)
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Customisation](#customisation)
+- [Troubleshooting](#troubleshooting)
 
 ## Features
 
@@ -103,3 +104,8 @@ require('telescope-manix').search(default_opts)
 -- or
 require('telescope').extensions.manix.manix(default_opts)
 ```
+
+## Troubleshooting
+
+If you are not seeing any search results,
+you may need to run `manix --update-cache <query>`, to initialise the cache.
