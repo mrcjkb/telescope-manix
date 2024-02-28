@@ -126,7 +126,7 @@ manix.search = function(opts)
   pickers
     .new(opts, {
       prompt_title = "Nix search",
-      finder = finders.new_oneshot_job(vim.print(mk_manix_cmd(opts)), opts),
+      finder = finders.new_oneshot_job(mk_manix_cmd(opts), opts),
       sorter = config.generic_sorter(opts),
       previewer = previewers.display_content.new(opts),
       attach_mappings = attach_mappings,
