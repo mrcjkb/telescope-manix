@@ -3,3 +3,5 @@ result
 
 .pre-commit-config.yaml
 .direnv
+
+.luarc.json

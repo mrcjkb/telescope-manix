@@ -4,9 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    neorocks = {
-      url = "github:nvim-neorocks/neorocks";
-    };
+    neorocks.url = "github:nvim-neorocks/neorocks";
+
+    gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -20,6 +20,7 @@
     self,
     nixpkgs,
     neorocks,
+    gen-luarc,
     pre-commit-hooks,
     flake-utils,
     ...
@@ -39,56 +40,26 @@
         overlays = [
           plugin-overlay
           neorocks.overlays.default
+          gen-luarc.overlays.default
         ];
       };
 
       docgen = pkgs.callPackage ./nix/docgen.nix {};
 
-      mkTypeCheck = {
-        nvim-api ? [],
-        disabled-diagnostics ? [],
-      }:
-        pre-commit-hooks.lib.${system}.run {
-          src = self;
-          hooks = {
-            lua-ls.enable = true;
-          };
-          settings = {
-            lua-ls = {
-              config = {
-                runtime.version = "LuaJIT";
-                Lua = {
-                  workspace = {
-                    library =
-                      nvim-api
-                      ++ [
-                        "${pkgs.vimPlugins.telescope-nvim}/lua"
-                      ];
-                    checkThirdParty = false;
-                    ignoreDir = [
-                      ".git"
-                      ".github"
-                      ".direnv"
-                      "result"
-                      "nix"
-                      "doc"
-                    ];
-                  };
-                  diagnostics = {
-                    libraryFiles = "Disable";
-                    disable = disabled-diagnostics;
-                  };
-                };
-              };
-            };
-          };
-        };
+      luarc-plugins = with pkgs.lua51Packages; [
+        telescope-nvim
+      ];
 
-      type-check-stable = mkTypeCheck {
-        nvim-api = [
-          "${pkgs.neovim}/share/nvim/runtime/lua"
-          "${pkgs.vimPlugins.neodev-nvim}/types/stable"
-        ];
+      luarc-nightly = pkgs.mk-luarc {
+        nvim = pkgs.neovim-nightly;
+        neodev-types = "nightly";
+        plugins = luarc-plugins;
+      };
+
+      luarc-stable = pkgs.mk-luarc {
+        nvim = pkgs.neovim-unwrapped;
+        neodev-types = "stable";
+        plugins = luarc-plugins;
         disabled-diagnostics = [
           "undefined-doc-name"
           "redundant-parameter"
@@ -96,11 +67,24 @@
         ];
       };
 
-      type-check-nightly = mkTypeCheck {
-        nvim-api = [
-          "${pkgs.neovim-nightly}/share/nvim/runtime/lua"
-          "${pkgs.vimPlugins.neodev-nvim}/types/nightly"
-        ];
+      type-check-nightly = pre-commit-hooks.lib.${system}.run {
+        src = self;
+        hooks = {
+          lua-ls.enable = true;
+        };
+        settings = {
+          lua-ls.config = luarc-nightly;
+        };
+      };
+
+      type-check-stable = pre-commit-hooks.lib.${system}.run {
+        src = self;
+        hooks = {
+          lua-ls.enable = true;
+        };
+        settings = {
+          lua-ls.config = luarc-stable;
+        };
       };
 
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
@@ -116,7 +100,10 @@
 
       telescope-manix-shell = pkgs.mkShell {
         name = "telescope-manix-devShell";
-        inherit (pre-commit-check) shellHook;
+        shellHook = ''
+          ${pre-commit-check.shellHook}
+          ln -fs ${pkgs.luarc-to-json luarc-nightly} .luarc.json
+        '';
         buildInputs = with pre-commit-hooks.packages.${system}; [
           alejandra
           lua-language-server
