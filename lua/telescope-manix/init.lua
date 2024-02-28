@@ -117,8 +117,8 @@ end
 ---Search the Nix documentation
 ---@param opts ManixOpts|table The manix options and/or the options to pass to Telescope
 manix.search = function(opts)
-  if vim.fn.executable("manix") == "1" then
-    error("telescope-manix: 'manix' executable not found! Aborting.")
+  if vim.fn.executable("manix") ~= 1 then
+    vim.notify("telescope-manix: 'manix' executable not found! Aborting.", vim.log.levels.ERROR)
     return
   end
   opts = opts or {}
