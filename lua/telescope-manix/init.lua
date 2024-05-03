@@ -40,7 +40,7 @@ local manix = {}
 local function mk_manix_cmd(opts)
   local search_arg = opts.cword and vim.fn.expand("<cword>") or ""
   local args = opts.manix_args or {}
-  return vim.tbl_flatten({ "manix", search_arg, args })
+  return compat.tbl_flatten({ "manix", search_arg, args })
 end
 
 ---@param str string
