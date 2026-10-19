@@ -21,7 +21,6 @@ if not has_telescope then
   error("telescope-manix requires nvim-telescope/telescope.nvim")
 end
 
-local compat = require("telescope-manix.compat")
 local finders = require("telescope.finders")
 local config = require("telescope.config").values
 local actions = require("telescope.actions")
@@ -40,7 +39,7 @@ local manix = {}
 local function mk_manix_cmd(opts)
   local search_arg = opts.cword and vim.fn.expand("<cword>") or ""
   local args = opts.manix_args or {}
-  return compat.tbl_flatten({ "manix", search_arg, args })
+  return vim.list_extend({ "manix", search_arg }, args)
 end
 
 ---@param str string
@@ -58,7 +57,7 @@ end
 ---@param buf integer
 ---@return nil
 local function show_manix_preview(entry, buf)
-  compat.system(
+  vim.system(
     { "manix", entry.display, "--strict" },
     nil,
     vim.schedule_wrap(function(sc)
