@@ -33,7 +33,7 @@ extension for [Manix](https://github.com/nix-community/manix)
 
 ## Prerequisites
 
-- Neovim >= 0.9
+- Neovim >= 0.12
 - Depends on [Manix](https://github.com/nix-community/manix).
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
